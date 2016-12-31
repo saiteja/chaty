@@ -22,7 +22,7 @@ server.post('/api/messages', connector.listen());
 
 // Create bot settings
 bot.dialog('/', function (session) {
-    session.send('Hello World');
+    session.send('I am Groot');
 });
 
 server.get('/', restify.serveStatic({
