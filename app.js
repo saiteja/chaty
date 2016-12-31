@@ -44,7 +44,7 @@ bot.dialog('/user', function(session) {
     session.send('Happy new year %s', session.userData.name);
 });
 
-server.get('/', restify.serveStatic({
+server.get('/.*/', restify.serveStatic({
     directory: __dirname,
     default: '/chat.html'
 }));
