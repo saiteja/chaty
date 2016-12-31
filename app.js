@@ -22,10 +22,29 @@ server.post('/api/messages', connector.listen());
 
 // Create bot settings
 bot.dialog('/', function (session) {
-    session.send('I am Groot');
+    if (!session.userData.name) {
+        session.beginDialog('/profile');
+    } else {
+        session.send('I am Groot', session.userData.name);
+    }
 });
 
-server.get('/', restify.serveStatic({
+bot.dialog('/profile', [
+    function (session) {
+        builder.Prompts.text(session, 'Hi! What is your name?');
+    },
+    function (session, results) {
+        session.userData.name = results.response;
+        session.beginDialog('/user');
+        session.endDialog();
+    }
+]);
+
+bot.dialog('/user', function(session) {
+    session.send('Happy new year %s', session.userData.name);
+});
+
+server.get('/.*/', restify.serveStatic({
     directory: __dirname,
     default: '/chat.html'
 }));
