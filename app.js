@@ -36,11 +36,13 @@ bot.dialog('/profile', [
     function (session, results) {
         session.userData.name = results.response;
         session.beginDialog('/user');
+        session.endDialog();
     }
 ]);
 
 bot.dialog('/user', function(session) {
     session.send('Happy new year %s', session.userData.name);
+    session.endDialog();
 });
 
 server.get('/.*/', restify.serveStatic({
