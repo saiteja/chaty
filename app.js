@@ -27,5 +27,5 @@ bot.dialog('/', function (session) {
 
 server.get('/', restify.serveStatic({
     directory: __dirname,
-    default: '/index.html'
+    default: '/chat.html'
 }));
